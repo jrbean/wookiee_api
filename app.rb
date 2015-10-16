@@ -8,16 +8,18 @@ class App < Sinatra::Base
       name_to_check = name
 
       results_arr = []
-      Character.all.each do |c|
+      Character.all.each do |c| #use .map instead of .each
         if c[:name].downcase.include? name_to_check.downcase
           {
             name: c.name,
             species: c.species,
             height: c.height,
-            weight: c.weight
+            weight: c.weight,
+            body: c.body,
+            img_url: c.img_url
             }
+            results_arr << c
           #c.merge(affiliations: c.affiliations.map { |a| a[:name] })
-          results_arr << c
         end
       end
       { results: results_arr }.to_json
